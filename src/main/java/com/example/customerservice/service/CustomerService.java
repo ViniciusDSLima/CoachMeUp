@@ -2,10 +2,13 @@ package com.example.customerservice.service;
 
 import com.example.customerservice.DTO.CustomerDTO;
 import com.example.customerservice.domain.models.Customer;
+import com.example.customerservice.mapper.CustomerMapper;
 import com.example.customerservice.repository.CustomerRepository;
 import com.example.customerservice.request.CustomerRegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +19,9 @@ public class CustomerService {
 
     @Transactional
     public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
-        customerRepository.save(new Customer(customerRegisterRequest));
+        Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
+
+        return CustomerMapper.INSTANCE.toCustomerDto(customer);
+
     }
 }
