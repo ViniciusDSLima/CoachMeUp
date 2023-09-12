@@ -2,7 +2,6 @@ package com.example.customerservice.DTO;
 
 import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.Flat;
-import jakarta.persistence.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,6 @@ public class CustomerDTO {
     private String email;
     private String NIF;
     private String phone;
-    @Embedded
     private Address address;
     private Flat flat;
 
