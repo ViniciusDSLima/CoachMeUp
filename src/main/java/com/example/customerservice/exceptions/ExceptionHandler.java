@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 @AllArgsConstructor
 public class ExceptionHandler {
-
+    @org.springframework.web.bind.annotation.ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<Error> objectNotFoundException(ObjectNotFoundException ex,
                                                          HttpServletRequest request){
         Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Object Not found",
