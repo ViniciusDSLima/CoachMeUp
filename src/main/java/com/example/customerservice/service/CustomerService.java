@@ -6,6 +6,7 @@ import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.mapper.CustomerMapper;
 import com.example.customerservice.repository.CustomerRepository;
 import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.CustomerUpdateRequest;
 import com.example.customerservice.validations.ValidationsName;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class CustomerService {
     @Transactional
     public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
 
-        ValidationsName.valide(customerRegisterRequest);
+        ValidationsName.valideRegister(customerRegisterRequest);
 
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
 
@@ -32,5 +33,13 @@ public class CustomerService {
                 () -> new ObjectNotFoundException("Customer Not Found")));
     }
 
+    @Transactional
+    public CustomerDTO update(CustomerUpdateRequest customerUpdateRequest){
 
+        ValidationsName.valideUpdate(customerUpdateRequest);
+
+        Customer customer = customerRepository.save(new Customer(customerUpdateRequest));
+
+        return CustomerMapper.INSTANCE.toCustomerDto(customer);
+    }
 }
