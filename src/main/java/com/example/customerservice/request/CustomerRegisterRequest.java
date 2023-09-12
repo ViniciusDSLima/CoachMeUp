@@ -18,22 +18,20 @@ import lombok.ToString;
 @AllArgsConstructor
 public class CustomerRegisterRequest {
     @NotBlank
-    @Min(value = 3, message = "The minimum number of characters for the name is 3")
-    @Max(value = 255, message = "The maximum number of characters for the name is 255")
     private String name;
     @Email
     @NotBlank
     private String email;
     @NotBlank
-    @Pattern(regexp = "/^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])(?:([0-9a-zA-Z$*&@#])(?!\\1)){8,}$/i")
+    @Pattern(regexp = "^(?:(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))(?!.*(.)\\1{2,})[A-Za-z0-9!~<>,;:_=?*+#.”&§%°()\\|\\[\\]\\-\\$\\^\\@\\/]{8,32}$")
     private String password;
     @NotNull
-    @Pattern(regexp = "^\\d{8}\\d{1}$")
+//    @Pattern(regexp = "^\\d{8}\\d{1}$")
     private long NIF;
     @NotNull
     @Pattern(regexp = "\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"
             , message = "enter a valid cell phone number")
-    private long phone;
+    private String phone;
     @NotNull
     private Address address;
     @NotNull

@@ -25,7 +25,7 @@ public class Customer {
     private String email;
     private String password;
     private long NIF;
-    private long phone;
+    private String phone;
     @Embedded
     private Address address;
     @Enumerated(EnumType.STRING)
