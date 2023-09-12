@@ -4,9 +4,11 @@ import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
 import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.CustomerUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -45,5 +47,15 @@ public class Customer {
         this.phone = data.getPhone();
         this.address = data.getAddress();
         this.role = getRole();
+        this.register = LocalDateTime.now();
+    }
+
+    public Customer(CustomerUpdateRequest data) {
+        if(data.getName() != null) this.name = data.getName();
+        if(data.getEmail() != null) this.email= data.getEmail();
+        if(data.getPassword() != null) this.password = data.getPassword();
+        if(data.getPhone() != null) this.phone= data.getPhone();
+        if(data.getAddress() != null) this.address.updateInfo(data.getAddress());
+        this.update = LocalDateTime.now();
     }
 }
