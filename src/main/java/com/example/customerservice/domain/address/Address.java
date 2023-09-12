@@ -20,4 +20,12 @@ public class Address {
     private String district;
     private String complement;
 
+    public void updateInfo(Address address) {
+        this.street = address.street;
+        this.number = address.number;
+        this.parish = address.parish;
+        this.municipalities = address.municipalities;
+        this.district = address.district;
+        this.complement = address.complement;
+    }
 }
