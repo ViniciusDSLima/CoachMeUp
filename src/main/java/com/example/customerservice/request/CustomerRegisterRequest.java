@@ -1,17 +1,11 @@
 package com.example.customerservice.request;
 
-import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
-import jakarta.websocket.OnMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -34,7 +28,7 @@ public class CustomerRegisterRequest {
             , message = "enter a valid cell phone number")
     private String phone;
     @NotNull
-    private Address address;
+    private DataAddress address;
     @NotNull
     private Flat flat;
     @NotNull

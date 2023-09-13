@@ -24,5 +24,5 @@ public class CustomerUpdateRequest {
     @Pattern(regexp = "\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"
             , message = "enter a valid cell phone number")
     private String phone;
-    private Address address;
+    private DataAddress address;
 }
