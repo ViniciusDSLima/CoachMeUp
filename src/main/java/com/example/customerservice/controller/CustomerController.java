@@ -1,9 +1,13 @@
 package com.example.customerservice.controller;
 
+import com.example.customerservice.DTO.CustomerDTO;
+import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.CustomerUpdateRequest;
 import com.example.customerservice.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.apache.tomcat.util.http.parser.HttpParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +28,10 @@ public class CustomerController {
     public ResponseEntity findById(@PathVariable("id") String id){
         return ResponseEntity.status(HttpStatus.OK).body(customerService.findById(id));
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity update(@PathVariable("id") String id, @RequestBody CustomerUpdateRequest customerUpdateRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.update(id,customerUpdateRequest));
+    }
+
 }
