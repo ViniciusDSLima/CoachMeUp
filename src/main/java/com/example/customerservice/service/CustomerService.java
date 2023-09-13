@@ -9,8 +9,12 @@ import com.example.customerservice.request.CustomerRegisterRequest;
 import com.example.customerservice.request.CustomerUpdateRequest;
 import com.example.customerservice.validations.ValidationsName;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.example.customerservice.enums.MensagemCustomer.OBJETO_NAO_ENCONTRADO;
 
 @Service
 @AllArgsConstructor
@@ -34,12 +38,12 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDTO update(CustomerUpdateRequest customerUpdateRequest){
+    public CustomerDTO update(@NotBlank String id,@Valid CustomerUpdateRequest customerUpdateRequest){
 
-        ValidationsName.valideUpdate(customerUpdateRequest);
+        var customer = customerRepository.findById(id);
 
-        Customer customer = customerRepository.save(new Customer(customerUpdateRequest));
-
-        return CustomerMapper.INSTANCE.toCustomerDto(customer);
+        if(!customer.isPresent()){
+            throw new ObjectNotFoundException(CUSTOMER_NAO_ENCONTRADO.getDescription());
+        }
     }
 }
