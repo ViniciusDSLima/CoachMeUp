@@ -1,6 +1,7 @@
 package com.example.customerservice.service;
 
 import com.example.customerservice.DTO.CustomerDTO;
+import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.mapper.CustomerMapper;
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.example.customerservice.enums.MensagemCustomer.OBJETO_NAO_ENCONTRADO;
+import static com.example.customerservice.enums.MensagemCustomer.CUSTOMER_NAO_ENCONTRADO;
 
 @Service
 @AllArgsConstructor
@@ -38,12 +39,14 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDTO update(@NotBlank String id,@Valid CustomerUpdateRequest customerUpdateRequest){
+    public CustomerDTO update(@NotBlank String id,@Valid CustomerUpdateRequest data){
 
-        var customer = customerRepository.findById(id);
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException(CUSTOMER_NAO_ENCONTRADO.getDescription()));
 
-        if(!customer.isPresent()){
-            throw new ObjectNotFoundException(CUSTOMER_NAO_ENCONTRADO.getDescription());
-        }
+        Customer customerUpdate = customerRepository.getReferenceById(id);
+        customerUpdate.updateInfo(data);
+
+        return CustomerMapper.INSTANCE.toCustomerDto(customerUpdate);
     }
 }
