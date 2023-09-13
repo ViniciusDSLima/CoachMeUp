@@ -11,7 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.cglib.core.Local;
+import org.springframework.lang.Nullable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,6 +25,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@EntityScan
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,21 +41,12 @@ public class Customer {
     private CustomerRole role;
     @Enumerated(EnumType.STRING)
     private Flat flat;
+    @Column(nullable = true)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime register;
+    LocalDateTime register;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime update;
+    LocalDateTime updated;
 
-    public Customer(CustomerRegisterRequest data) {
-        this.name = data.getName();
-        this.email = data.getEmail();
-        this.password = data.getPassword();
-        this.NIF = data.getNIF();
-        this.phone = data.getPhone();
-        this.address = new Address(data.getAddress());
-        this.role = getRole();
-        this.register = LocalDateTime.now();
-    }
 
     public void updateInfo(CustomerUpdateRequest data) {
         if(data.getName() != null) this.name = data.getName();
@@ -58,6 +54,6 @@ public class Customer {
         if(data.getPassword() != null) this.password = data.getPassword();
         if(data.getPhone() != null) this.phone = data.getPhone();
         if(data.getAddress() != null) this.address.updateInfo(data.getAddress());
-        this.update = LocalDateTime.now();
+        this.updated = LocalDateTime.now();
     }
 }
