@@ -2,10 +2,14 @@ package com.example.customerservice.request;
 
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -33,5 +37,6 @@ public class CustomerRegisterRequest {
     private Flat flat;
     @NotNull
     private CustomerRole role;
-
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime register = LocalDateTime.now();
 }
