@@ -1,5 +1,6 @@
 package com.example.customerservice.domain.address;
 
+import com.example.customerservice.request.DataAddress;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,22 +11,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-
-
     private String street;
-    private long code;
-    private int number;
+    private long postalCode;
+    private int houseNumber;
     private String parish;
     private String municipalities;
     private String district;
     private String complement;
 
-    public void updateInfo(Address address) {
-        this.street = address.street;
-        this.number = address.number;
-        this.parish = address.parish;
-        this.municipalities = address.municipalities;
-        this.district = address.district;
-        this.complement = address.complement;
+    public Address(DataAddress address) {
+        this.street = address.getStreet();
+        this.postalCode = address.getPostalCode();
+        this.houseNumber = address.getHouseNumber();
+        this.parish = address.getParish();
+        this.municipalities = address.getMunicipalities();
+        this.district = address.getDistrict();
+        this.complement = address.getComplement();
     }
+
+
+    public void updateInfo(DataAddress address){
+        if(address.getStreet() != null){
+            this.street = address.getStreet();
+            this.postalCode = address.getPostalCode();
+            this.houseNumber = address.getHouseNumber();
+        }
+
+        if(address.getParish() != null) this.parish = address.getParish();
+        if(address.getMunicipalities() != null) this.municipalities = address.getMunicipalities();
+        if(address.getDistrict() != null) this.district = address.getDistrict();
+        if(address.getComplement() != null) this.complement = address.getComplement();
+
+
+    }
+
 }
