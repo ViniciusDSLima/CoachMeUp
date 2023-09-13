@@ -15,6 +15,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static com.example.customerservice.enums.MensagemCustomer.CUSTOMER_NAO_ENCONTRADO;
 
 @Service
@@ -48,5 +50,13 @@ public class CustomerService {
         customerUpdate.updateInfo(data);
 
         return CustomerMapper.INSTANCE.toCustomerDto(customerUpdate);
+    }
+
+    @Transactional
+    public void delete(String id) {
+        var customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("objeto nao encontrado."));
+
+        customerRepository.deleteById(id);
     }
 }
