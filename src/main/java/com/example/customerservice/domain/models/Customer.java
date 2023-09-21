@@ -3,7 +3,6 @@ package com.example.customerservice.domain.models;
 import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
-import com.example.customerservice.request.CustomerRegisterRequest;
 import com.example.customerservice.request.CustomerUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -12,10 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cglib.core.Local;
-import org.springframework.lang.Nullable;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
