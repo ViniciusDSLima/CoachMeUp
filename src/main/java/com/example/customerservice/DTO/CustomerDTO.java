@@ -20,8 +20,4 @@ public class CustomerDTO {
     private String phone;
     private Address address;
     private Flat flat;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime created_at = LocalDateTime.now();
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime updated_at = LocalDateTime.now();
 }
