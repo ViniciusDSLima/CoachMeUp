@@ -7,12 +7,15 @@ import com.example.customerservice.mapper.CustomerMapper;
 import com.example.customerservice.repository.CustomerRepository;
 import com.example.customerservice.request.CustomerRegisterRequest;
 import com.example.customerservice.request.CustomerUpdateRequest;
-import com.example.customerservice.validations.ValidationsName;
+import com.example.customerservice.validations.Validation;
+import com.example.customerservice.validations.validacoes.NameValidation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static com.example.customerservice.enums.MensagemCustomer.CUSTOMER_NAO_ENCONTRADO;
 
@@ -22,10 +25,15 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
 
+    private List<Validation> validations;
+
+    // salva os clientes no banco de dados.
     @Transactional
     public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
 
-        ValidationsName.valideRegister(customerRegisterRequest);
+        for(Validation valide: validations){
+            valide.validate(customerRegisterRequest);
+        }
 
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
 
