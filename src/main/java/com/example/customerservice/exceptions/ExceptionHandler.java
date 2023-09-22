@@ -1,5 +1,5 @@
 package com.example.customerservice.exceptions;
-import com.example.customerservice.domain.models.Customer;
+
 import com.example.customerservice.exceptions.errors.CustomerAlreadyException;
 import com.example.customerservice.exceptions.errors.IvalidFieldsException;
 import com.example.customerservice.exceptions.errors.LengthException;

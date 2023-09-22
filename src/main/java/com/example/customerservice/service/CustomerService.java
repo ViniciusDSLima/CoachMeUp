@@ -31,6 +31,7 @@ public class CustomerService {
     @Transactional
     public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
 
+        //validacoes
         for(Validation valide: validations){
             valide.validate(customerRegisterRequest);
         }
