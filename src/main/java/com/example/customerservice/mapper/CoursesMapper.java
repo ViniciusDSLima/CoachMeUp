@@ -5,11 +5,15 @@ import com.example.customerservice.domain.models.Courses;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface CoursesMapper {
 
     CoursesMapper INSTANCE = Mappers.getMapper(CoursesMapper.class);
 
 
-    CoursesDTO toCoursesDTO(Courses course);
+    CoursesDTO toCourseDTO(Courses course);
+
+    List<CoursesDTO> toCoursesDTO(List<Courses> course);
 }
