@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customers",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id", "NIF"}))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,10 +25,13 @@ import java.time.LocalDateTime;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(unique = true)
     private String id;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
+    @Column(unique = true)
     private long NIF;
     private String phone;
     @Embedded
