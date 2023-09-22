@@ -1,5 +1,6 @@
 package com.example.customerservice.controller;
 
+import com.example.customerservice.domain.models.Category;
 import com.example.customerservice.domain.models.Courses;
 import com.example.customerservice.service.CoursesService;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,10 @@ public class CoursesController {
     @GetMapping("/{name}")
     public ResponseEntity findByName(@PathVariable String name){
         return ResponseEntity.status(HttpStatus.OK).body(coursesService.findByName(name));
+    }
+
+    @GetMapping("/categories/{category}")
+    public ResponseEntity findByCategory(@PathVariable("category") Category category){
+        return ResponseEntity.status(HttpStatus.OK).body(coursesService.findByCategory(category));
     }
 }
