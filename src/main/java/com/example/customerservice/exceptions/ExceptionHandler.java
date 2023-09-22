@@ -1,9 +1,6 @@
 package com.example.customerservice.exceptions;
 
-import com.example.customerservice.exceptions.errors.CustomerAlreadyException;
-import com.example.customerservice.exceptions.errors.IvalidFieldsException;
-import com.example.customerservice.exceptions.errors.LengthException;
-import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
+import com.example.customerservice.exceptions.errors.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -48,5 +45,14 @@ public class ExceptionHandler {
                 ex.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UndefinedName.class)
+    public ResponseEntity<Error> UndefinedName(UndefinedName ex,
+                                                          HttpServletRequest request){
+        Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Course not found",
+                ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 }
