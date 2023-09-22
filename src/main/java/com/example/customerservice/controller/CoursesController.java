@@ -35,4 +35,12 @@ public class CoursesController {
     public ResponseEntity updateCourse(@PathVariable("id") String id, @RequestBody CoursesUpdateRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(coursesService.updateCourse(id, request));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteCourse(@PathVariable("id") String id){
+
+        coursesService.delete(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
