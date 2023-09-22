@@ -2,6 +2,7 @@ package com.example.customerservice.controller;
 
 import com.example.customerservice.domain.models.Category;
 import com.example.customerservice.domain.models.Courses;
+import com.example.customerservice.request.course.CoursesUpdateRequest;
 import com.example.customerservice.service.CoursesService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,10 @@ public class CoursesController {
     @GetMapping("/categories/{category}")
     public ResponseEntity findByCategory(@PathVariable("category") Category category){
         return ResponseEntity.status(HttpStatus.OK).body(coursesService.findByCategory(category));
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateCourse(@PathVariable("id") String id, @RequestBody CoursesUpdateRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(coursesService.updateCourse(id, request));
     }
 }
