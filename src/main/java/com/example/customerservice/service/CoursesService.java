@@ -11,8 +11,10 @@ import com.example.customerservice.request.course.CoursesUpdateRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
@@ -51,5 +53,14 @@ public class CoursesService {
         return CoursesMapper.INSTANCE.toCoursesDTO(courses);
     }
 
-    
+
+    public void delete(@NotBlank String id) {
+        var courseExists = coursesRepository.findById(id);
+
+        if(courseExists.isEmpty()){
+            throw new ObjectNotFoundException("Curso nao encontrado na base de dados");
+        }
+
+        coursesRepository.deleteById(id);
+    }
 }
