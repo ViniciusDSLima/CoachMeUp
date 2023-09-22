@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "courses", uniqueConstraints =
             @UniqueConstraint(columnNames = "id"))
@@ -16,11 +18,11 @@ import org.springframework.data.annotation.TypeAlias;
 @EqualsAndHashCode(of = "id")
 public class Courses {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(unique = true)
-    private Long id;
+    private String id;
     private String name;
     @Enumerated(EnumType.STRING)
     private Category category;
-
+    private BigDecimal price;
 }
