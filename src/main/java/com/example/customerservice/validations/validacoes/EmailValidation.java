@@ -18,7 +18,7 @@ public class EmailValidation implements Validation {
         var customerExists = customerRepository.findByEmail(request.getEmail());
 
         if(customerExists.isPresent()){
-            throw new CustomerAlreadyException("cliente ja cadastrado");
+            throw new CustomerAlreadyException("cliente com o email ja cadastrado.");
         }
     }
 }
