@@ -1,13 +1,10 @@
 package com.example.customerservice.domain.address;
 
-import com.example.customerservice.exceptions.errors.IvalidFieldsException;
-import com.example.customerservice.request.DataAddress;
-import jakarta.persistence.Column;
+import com.example.customerservice.request.customer.DataAddress;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 @Embeddable
 @Data

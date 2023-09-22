@@ -2,9 +2,8 @@ package com.example.customerservice.mapper;
 
 import com.example.customerservice.DTO.CustomerDTO;
 import com.example.customerservice.domain.models.Customer;
-import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.customer.CustomerRegisterRequest;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper

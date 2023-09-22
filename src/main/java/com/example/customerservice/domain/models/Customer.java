@@ -3,7 +3,7 @@ package com.example.customerservice.domain.models;
 import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
-import com.example.customerservice.request.CustomerUpdateRequest;
+import com.example.customerservice.request.customer.CustomerUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

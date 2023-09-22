@@ -1,11 +1,6 @@
-package com.example.customerservice.request;
+package com.example.customerservice.request.customer;
 
-import com.example.customerservice.domain.address.Address;
-import com.example.customerservice.enums.CustomerRole;
-import com.example.customerservice.enums.Flat;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;

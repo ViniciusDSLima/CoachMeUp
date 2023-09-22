@@ -1,4 +1,4 @@
-package com.example.customerservice.request;
+package com.example.customerservice.request.customer;
 
 import com.example.customerservice.enums.CustomerRole;
 import com.example.customerservice.enums.Flat;
@@ -7,7 +7,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 

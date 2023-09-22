@@ -1,7 +1,7 @@
 package com.example.customerservice.validations;
 
-import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.customer.CustomerRegisterRequest;
 
 public interface Validation {
-    void validate(CustomerRegisterRequest request);
+    void valideCustomer(CustomerRegisterRequest request);
 }

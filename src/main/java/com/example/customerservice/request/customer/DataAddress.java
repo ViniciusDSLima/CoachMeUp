@@ -1,4 +1,4 @@
-package com.example.customerservice.request;
+package com.example.customerservice.request.customer;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;

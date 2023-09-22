@@ -1,24 +1,23 @@
-package com.example.customerservice.validations.validacoes;
+package com.example.customerservice.validations.validacoes.customer;
 
-import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.exceptions.errors.CustomerAlreadyException;
 import com.example.customerservice.repository.CustomerRepository;
-import com.example.customerservice.request.CustomerRegisterRequest;
+import com.example.customerservice.request.customer.CustomerRegisterRequest;
 import com.example.customerservice.validations.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NifValidation implements Validation {
+public class EmailValidation implements Validation {
     @Autowired
     private CustomerRepository customerRepository;
 
     @Override
-    public void validate(CustomerRegisterRequest request) {
-        var customerExists = customerRepository.findByNIF(request.getNIF());
+    public void valideCustomer(CustomerRegisterRequest request) {
+        var customerExists = customerRepository.findByEmail(request.getEmail());
 
         if(customerExists.isPresent()){
-            throw new CustomerAlreadyException("Cliente Com o NIF ja cadastrado.");
+            throw new CustomerAlreadyException("cliente com o email ja cadastrado.");
         }
     }
 }

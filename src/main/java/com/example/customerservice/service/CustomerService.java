@@ -5,10 +5,9 @@ import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.mapper.CustomerMapper;
 import com.example.customerservice.repository.CustomerRepository;
-import com.example.customerservice.request.CustomerRegisterRequest;
-import com.example.customerservice.request.CustomerUpdateRequest;
+import com.example.customerservice.request.customer.CustomerRegisterRequest;
+import com.example.customerservice.request.customer.CustomerUpdateRequest;
 import com.example.customerservice.validations.Validation;
-import com.example.customerservice.validations.validacoes.NameValidation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -33,7 +32,7 @@ public class CustomerService {
 
         //validacoes
         for(Validation valide: validations){
-            valide.validate(customerRegisterRequest);
+            valide.valideCustomer(customerRegisterRequest);
         }
 
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
