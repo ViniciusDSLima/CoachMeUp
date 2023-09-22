@@ -55,4 +55,13 @@ public class ExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UndefinedCategory.class)
+    public ResponseEntity<Error> UndefinedCategory(UndefinedCategory ex,
+                                               HttpServletRequest request){
+        Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Category not found",
+                ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 }
