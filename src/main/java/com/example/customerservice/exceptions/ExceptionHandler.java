@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
-@AllArgsConstructor
 public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<Error> objectNotFoundException(ObjectNotFoundException ex,
@@ -19,7 +18,7 @@ public class ExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
     @org.springframework.web.bind.annotation.ExceptionHandler(LengthException.class)
-    public ResponseEntity<Error> LengthException(LengthException ex,
+    public ResponseEntity<Error> lengthException(LengthException ex,
                                                          HttpServletRequest request){
         Error error = new Error(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Length exception",
                 ex.getMessage(), request.getRequestURI());
@@ -39,7 +38,7 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(CustomerAlreadyException.class)
-    public ResponseEntity<Error> CustomerAlreadyException(CustomerAlreadyException ex,
+    public ResponseEntity<Error> customerAlreadyException(CustomerAlreadyException ex,
                                                             HttpServletRequest request){
         Error error = new Error(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Customer Already Exception",
                 ex.getMessage(), request.getRequestURI());
@@ -48,7 +47,7 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UndefinedName.class)
-    public ResponseEntity<Error> UndefinedName(UndefinedName ex,
+    public ResponseEntity<Error> undefinedName(UndefinedName ex,
                                                           HttpServletRequest request){
         Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Course not found",
                 ex.getMessage(), request.getRequestURI());
@@ -57,7 +56,7 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UndefinedCategory.class)
-    public ResponseEntity<Error> UndefinedCategory(UndefinedCategory ex,
+    public ResponseEntity<Error> undefinedCategory(UndefinedCategory ex,
                                                HttpServletRequest request){
         Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Category not found",
                 ex.getMessage(), request.getRequestURI());
