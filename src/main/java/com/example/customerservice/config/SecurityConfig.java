@@ -1,7 +1,8 @@
 package com.example.customerservice.config;
 
 import com.example.customerservice.security.SecurityFilter;
-import lombok.AllArgsConstructor;
+import com.example.customerservice.service.UsuarioService;
+import com.example.customerservice.service.UsuarioServiceImpl;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,9 +23,12 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
+    @Autowired
+    UsuarioServiceImpl usuarioService;
+
     final String[] PERMISSOES = {
             "/login",
-            "/register",
+            "api/v1/usuario/register",
             "api/v1/courses/{name}",
             "api/v1/courses/{category}"
     };
