@@ -1,22 +1,32 @@
 package com.example.customerservice.service;
 
+import com.example.customerservice.DTO.UsuarioDTO;
+import com.example.customerservice.domain.models.Usuario;
+import com.example.customerservice.mapper.UsuarioMapper;
 import com.example.customerservice.repository.UsuarioRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.example.customerservice.request.usuario.UsuarioRequestRegister;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService {
 
+    @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public UsuarioDTO singup(UsuarioRequestRegister request){
 
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return usuarioRepository.findByEmail(email);
+
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
+        Usuario usuario = usuarioRepository.save(UsuarioMapper.INSTANCE.toUsuario(request));
+
+        return UsuarioMapper.INSTANCE.toUsuarioDTO(usuario);
     }
 
 }
