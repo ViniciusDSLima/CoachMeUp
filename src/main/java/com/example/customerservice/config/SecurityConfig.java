@@ -1,7 +1,6 @@
 package com.example.customerservice.config;
 
 import com.example.customerservice.security.SecurityFilter;
-import com.example.customerservice.service.UsuarioService;
 import com.example.customerservice.service.UsuarioServiceImpl;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
