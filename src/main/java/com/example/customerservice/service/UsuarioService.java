@@ -6,6 +6,7 @@ import com.example.customerservice.mapper.UsuarioMapper;
 import com.example.customerservice.repository.UsuarioRepository;
 import com.example.customerservice.request.usuario.UsuarioRequestRegister;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UsuarioDTO singup(UsuarioRequestRegister request){
+    public UsuarioDTO singup(@Valid UsuarioRequestRegister request){
 
 
 
