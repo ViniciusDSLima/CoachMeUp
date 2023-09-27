@@ -24,6 +24,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("CoachMeUp")
                     .withSubject(usuario.getEmail())
+                    .withClaim("email", usuario.getEmail())
                     .withExpiresAt(expiartionToken())
                     .sign(algorithm);
             
@@ -33,7 +34,7 @@ public class TokenService {
         }
     }
 
-    public boolean verifyToken(String token){
+    public boolean tokenIsValid(String token){
         try{
             Algorithm algorithm = Algorithm.HMAC256(key);
             JWT.require(algorithm)
@@ -46,7 +47,13 @@ public class TokenService {
             throw new RuntimeException("Erro ao validar o jwt " + e.getMessage());
         }
     }
+
+    public String getClaims(String token) {
+        return JWT.decode(token).getClaims().get("email").asString();
+    }
     private Instant expiartionToken() {
         return LocalDateTime.now().plusHours(1).toInstant(ZoneOffset.of("-03:00"));
     }
+
+
 }
