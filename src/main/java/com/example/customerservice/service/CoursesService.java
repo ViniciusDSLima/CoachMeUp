@@ -11,10 +11,8 @@ import com.example.customerservice.request.course.CoursesUpdateRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
 
