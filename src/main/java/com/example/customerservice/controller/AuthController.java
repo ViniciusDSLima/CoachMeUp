@@ -2,6 +2,7 @@ package com.example.customerservice.controller;
 
 import com.example.customerservice.request.usuario.UsuarioRequestLogin;
 import com.example.customerservice.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
