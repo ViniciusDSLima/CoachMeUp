@@ -28,9 +28,9 @@ public class SecurityConfig {
 
     final String[] PERMISSOES = {
             "/login",
-            "api/v1/usuario/register",
-            "api/v1/courses/{name}",
-            "api/v1/courses/{category}"
+            "/api/v1/usuario/register",
+            "/api/v1/courses/{name}",
+            "/api/v1/courses/{category}"
     };
 
     @Bean
