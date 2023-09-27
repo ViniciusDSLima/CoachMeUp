@@ -1,13 +1,11 @@
 package com.example.customerservice.security;
 
-import com.example.customerservice.service.UsuarioService;
 import com.example.customerservice.service.UsuarioServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,9 +22,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = recoverToken(request);
-        if(token != null){
-            var email = tokenService.verifyToken(token);
-            UserDetails usuario = usuarioService.loadUserByUsername(String.valueOf(email));
+        if(token != null && tokenService.tokenIsValid(token)){
+            String email = tokenService.getClaims(token);
+            UserDetails usuario = usuarioService.loadUserByUsername(email);
 
             var authetication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authetication);
@@ -40,7 +38,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(authHeader == null){
             return null;
         }
-        return authHeader.replace("Bearer", "");
+        return authHeader.replace("Bearer ", "");
     }
 
 

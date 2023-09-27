@@ -1,6 +1,8 @@
 package com.example.customerservice.service;
 
 import com.example.customerservice.domain.models.Usuario;
+import com.example.customerservice.exceptions.errors.IvalidFieldsException;
+import com.example.customerservice.exceptions.errors.NullPointerException;
 import com.example.customerservice.request.usuario.UsuarioRequestLogin;
 import com.example.customerservice.security.TokenService;
 import jakarta.validation.Valid;
@@ -21,6 +23,16 @@ public class AuthService {
     TokenService tokenService;
 
     public List<String> login(@Valid UsuarioRequestLogin request){
+
+        if(request.getEmail() == null){
+            throw new NullPointerException("O email e necessario para realizar o login");
+        }
+
+        if(request.getPassword() == null){
+            throw new NullPointerException("A senha e necessaria para realizar o login");
+        }
+
+        
         var username = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
 
         var auth = this.authenticationManager.authenticate(username);
