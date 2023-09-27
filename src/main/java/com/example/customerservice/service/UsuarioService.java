@@ -22,8 +22,6 @@ public class UsuarioService {
     @Transactional
     public UsuarioDTO singup(@Valid UsuarioRequestRegister request){
 
-
-
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         Usuario usuario = usuarioRepository.save(UsuarioMapper.INSTANCE.toUsuario(request));
 
