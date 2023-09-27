@@ -8,7 +8,6 @@ class CustomerServiceApplicationTests {
 
     @Test
     void contextLoads() {
-        dsda
     }
 
 }
