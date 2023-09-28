@@ -1,21 +1,26 @@
 package com.example.customerservice.request.customer;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNullApi;
-import org.springframework.lang.Nullable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DataAddress {
-    private String street;
-    private int postalCode;
-    private String houseNumber;
-    private String parish;
-    private String municipalities;
-    private String district;
-    private String complement;
+    @NotBlank
+    private String morada;
+    @NotNull
+    private String codigoPostal;
+    private String porta;
+    @NotBlank
+    private String freguesia;
+    @NotBlank
+    private String concelho;
+    @NotBlank
+    private String distrito;
+    @NotBlank
+    private String localidade;
 }
