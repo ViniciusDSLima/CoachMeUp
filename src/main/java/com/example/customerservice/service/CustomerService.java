@@ -1,6 +1,8 @@
 package com.example.customerservice.service;
 
+import com.example.customerservice.DTO.AdressDTO;
 import com.example.customerservice.DTO.CustomerDTO;
+import com.example.customerservice.cloud.Ctt;
 import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.mapper.CustomerMapper;
@@ -26,18 +28,33 @@ public class CustomerService {
 
     private List<Validation> validations;
 
-    // salva os clientes no banco de dados.
+    private final Ctt cttClient;
+
+
     @Transactional
     public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
 
-        //validacoes
+        //Validacao email e password.
         for(Validation valide: validations){
             valide.valideCustomer(customerRegisterRequest);
         }
 
+        boolean codigoPostalValido = validarCodigoPostal(customerRegisterRequest);
+
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
 
         return CustomerMapper.INSTANCE.toCustomerDto(customer);
+    }
+
+    public boolean validarCodigoPostal(CustomerRegisterRequest customer){
+        String codigoPostal = customer.getAddress().getCodigoPostal();
+        AdressDTO adressDTO = cttClient.buscarCodigoPostal(codigoPostal);
+
+        if(adressDTO != null){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public CustomerDTO findById(String id){
@@ -64,4 +81,6 @@ public class CustomerService {
 
         customerRepository.deleteById(id);
     }
+
+
 }
