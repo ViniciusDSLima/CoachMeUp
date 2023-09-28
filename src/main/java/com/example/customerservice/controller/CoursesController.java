@@ -1,7 +1,7 @@
 package com.example.customerservice.controller;
 
-import com.example.customerservice.domain.models.Category;
-import com.example.customerservice.domain.models.Courses;
+import com.example.customerservice.domain.entities.Category;
+import com.example.customerservice.domain.entities.Courses;
 import com.example.customerservice.request.course.CoursesUpdateRequest;
 import com.example.customerservice.service.CoursesService;
 import lombok.AllArgsConstructor;

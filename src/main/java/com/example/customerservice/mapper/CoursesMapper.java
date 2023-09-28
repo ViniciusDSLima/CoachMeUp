@@ -1,7 +1,7 @@
 package com.example.customerservice.mapper;
 
 import com.example.customerservice.DTO.CoursesDTO;
-import com.example.customerservice.domain.models.Courses;
+import com.example.customerservice.domain.entities.Courses;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

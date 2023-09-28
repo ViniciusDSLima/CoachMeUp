@@ -1,6 +1,6 @@
 package com.example.customerservice.service;
 
-import com.example.customerservice.domain.models.Usuario;
+import com.example.customerservice.domain.entities.Usuario;
 import com.example.customerservice.request.usuario.UsuarioRequestLogin;
 import com.example.customerservice.security.TokenService;
 import jakarta.validation.Valid;

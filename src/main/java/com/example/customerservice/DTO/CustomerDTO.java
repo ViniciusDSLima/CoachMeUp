@@ -1,14 +1,10 @@
 package com.example.customerservice.DTO;
 
 import com.example.customerservice.domain.address.Address;
-import com.example.customerservice.domain.models.Customer;
 import com.example.customerservice.enums.Flat;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor

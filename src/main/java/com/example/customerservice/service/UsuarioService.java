@@ -1,7 +1,7 @@
 package com.example.customerservice.service;
 
 import com.example.customerservice.DTO.UsuarioDTO;
-import com.example.customerservice.domain.models.Usuario;
+import com.example.customerservice.domain.entities.Usuario;
 import com.example.customerservice.mapper.UsuarioMapper;
 import com.example.customerservice.repository.UsuarioRepository;
 import com.example.customerservice.request.usuario.UsuarioRequestRegister;

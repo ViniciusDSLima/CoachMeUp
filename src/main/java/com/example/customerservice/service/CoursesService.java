@@ -1,8 +1,8 @@
 package com.example.customerservice.service;
 
 import com.example.customerservice.DTO.CoursesDTO;
-import com.example.customerservice.domain.models.Category;
-import com.example.customerservice.domain.models.Courses;
+import com.example.customerservice.domain.entities.Category;
+import com.example.customerservice.domain.entities.Courses;
 import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.exceptions.errors.UndefinedName;
 import com.example.customerservice.mapper.CoursesMapper;
@@ -11,9 +11,11 @@ import com.example.customerservice.request.course.CoursesUpdateRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -47,6 +49,13 @@ public class CoursesService {
     public List<CoursesDTO> findByCategory(@Valid Category category){
         List<Courses> courses = coursesRepository.findByCategory(category)
                 .orElseThrow(() -> new ObjectNotFoundException("Nao ha cusos cadastrados com essa categoria."));
+
+        return CoursesMapper.INSTANCE.toCoursesDTO(courses);
+    }
+
+    public List<CoursesDTO> findByPrice(@Positive BigDecimal price){
+        List<Courses> courses = coursesRepository.findByPrice(price)
+                .orElseThrow(() -> new ObjectNotFoundException("Nao ha cursos com essa faixa de preco."));
 
         return CoursesMapper.INSTANCE.toCoursesDTO(courses);
     }

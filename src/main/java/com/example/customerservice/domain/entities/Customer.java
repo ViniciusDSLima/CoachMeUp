@@ -1,4 +1,4 @@
-package com.example.customerservice.domain.models;
+package com.example.customerservice.domain.entities;
 
 import com.example.customerservice.domain.address.Address;
 import com.example.customerservice.enums.CustomerRole;

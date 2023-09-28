@@ -2,8 +2,8 @@ package com.example.customerservice.service;
 
 import com.example.customerservice.DTO.AdressDTO;
 import com.example.customerservice.DTO.CustomerDTO;
-import com.example.customerservice.cloud.Ctt;
-import com.example.customerservice.domain.models.Customer;
+import com.example.customerservice.externalApis.Ctt;
+import com.example.customerservice.domain.entities.Customer;
 import com.example.customerservice.exceptions.errors.ObjectNotFoundException;
 import com.example.customerservice.mapper.CustomerMapper;
 import com.example.customerservice.repository.CustomerRepository;
@@ -81,6 +81,4 @@ public class CustomerService {
 
         customerRepository.deleteById(id);
     }
-
-
 }

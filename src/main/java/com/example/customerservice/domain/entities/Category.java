@@ -1,4 +1,4 @@
-package com.example.customerservice.domain.models;
+package com.example.customerservice.domain.entities;
 
 public enum Category {
     TREINO("treino"),
