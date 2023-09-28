@@ -2,6 +2,7 @@ package com.example.customerservice.exceptions;
 
 import com.example.customerservice.exceptions.errors.*;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,7 +26,6 @@ public class ExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-// REFATORACAO PARA A API "IBGE"
 
     @org.springframework.web.bind.annotation.ExceptionHandler(IvalidFieldsException.class)
     public ResponseEntity<Error> fieldInvalidationException(IvalidFieldsException ex,
