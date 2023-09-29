@@ -1,16 +1,20 @@
 package com.example.coachMeUp.domain.address;
 
+import com.example.coachMeUp.domain.entities.Customer;
 import com.example.coachMeUp.request.customer.DataAddress;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String morada;
     private String codigoPostal;
     private String porta;
@@ -18,6 +22,9 @@ public class Address {
     private String concelho;
     private String distrito;
     private String localidade;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_customer")
+    private Customer customer;
 
 
     public void updateInfo(DataAddress address){
