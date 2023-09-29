@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "customers",
@@ -32,10 +33,11 @@ public class Customer {
     private String email;
     private String password;
     @Column(unique = true)
-    private long NIF;
-    private String phone;
-    @Embedded
+    private String NIF;
+    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private Address address;
+    @OneToMany
+    private List<Phone> phone;
     @Enumerated(EnumType.STRING)
     private CustomerRole role;
     @Enumerated(EnumType.STRING)
