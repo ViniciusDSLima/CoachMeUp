@@ -1,5 +1,6 @@
 package com.example.coachMeUp.request.customer;
 
+import com.example.coachMeUp.domain.entities.Phone;
 import com.example.coachMeUp.enums.CustomerRole;
 import com.example.coachMeUp.enums.Flat;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,11 +27,9 @@ public class CustomerRegisterRequest {
     private String password;
     @NotNull
 //    @Pattern(regexp = "^\\d{8}\\d{1}$")
-    private long NIF;
+    private String NIF;
     @NotNull
-    @Pattern(regexp = "\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?"
-            , message = "enter a valid cell phone number")
-    private String phone;
+    private List<Phone> phone;
     @NotNull
     private DataAddress address;
     @NotNull
