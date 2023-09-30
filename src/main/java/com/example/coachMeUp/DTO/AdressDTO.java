@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class AdressDTO {
     private String morada;
-    private long codigoPostal;
+    private String codigoPostal;
     private String porta;
     private String freguesia;
     private String concelho;

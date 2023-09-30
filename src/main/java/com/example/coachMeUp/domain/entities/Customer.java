@@ -28,23 +28,34 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(unique = true)
     private String id;
+
     private String name;
     @Column(unique = true)
+
     private String email;
+
     private String password;
+
     @Column(unique = true)
     private String NIF;
+
     @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private Address address;
-    @OneToMany
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+
     private List<Phone> phone;
+
     @Enumerated(EnumType.STRING)
     private CustomerRole role;
+
     @Enumerated(EnumType.STRING)
     private Flat flat;
+
     @Column(nullable = true)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     LocalDateTime register;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     LocalDateTime updated;
 

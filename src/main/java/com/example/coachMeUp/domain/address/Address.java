@@ -22,6 +22,7 @@ public class Address {
     private String concelho;
     private String distrito;
     private String localidade;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_customer")
     private Customer customer;

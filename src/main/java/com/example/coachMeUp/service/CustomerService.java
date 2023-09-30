@@ -32,7 +32,7 @@ public class CustomerService {
 
 
     @Transactional
-    public CustomerDTO save(CustomerRegisterRequest customerRegisterRequest){
+    public CustomerDTO save(@Valid CustomerRegisterRequest customerRegisterRequest){
 
         //Validacao email e password.
         for(Validation valide: validations){
@@ -48,14 +48,10 @@ public class CustomerService {
 
     public boolean validarCodigoPostal(CustomerRegisterRequest customer){
         String codigoPostal = customer.getAddress().getCodigoPostal();
-        AdressDTO adressDTO = cttClient.buscarCodigoPostal(codigoPostal);
+        List<AdressDTO> adressDTO = cttClient.buscarCodigoPostal(codigoPostal);
 
-        if(adressDTO != null){
-            return true;
-        } else{
-            return false;
-        }
-    }
+        return (adressDTO != null && !adressDTO.isEmpty()) ? true : false;
+     }
 
     public CustomerDTO findById(String id){
         return CustomerMapper.INSTANCE.toCustomerDto(customerRepository.findById(id).orElseThrow(
