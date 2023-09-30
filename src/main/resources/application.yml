@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
-    username: Vinicius
-    url: jdbc:postgresql://localhost:5432/CoachMeUp
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/coachmeup
   jpa:
     hibernate:
       ddl-auto: update
