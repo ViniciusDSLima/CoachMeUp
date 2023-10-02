@@ -25,11 +25,28 @@ public class SecurityConfig {
     @Autowired
     UsuarioServiceImpl usuarioService;
 
-    final String[] PERMISSOES = {
+    final String[] PERMISSOES_GERAIS = {
             "/login",
             "/api/v1/usuario/register",
             "/api/v1/courses/{name}",
-            "/api/v1/courses/{category}"
+            "/api/v1/courses/categories/{category}"
+    };
+
+    final String[] PERMISSOES_ADMINISTRACAO = {
+            "/api/v1/courses/register",
+            "/api/v1/courses/delete/{id}",
+            "/api/v1/courses/update/{id}",
+            "/api/v1/courses/update/{id}",
+            "/api/v1/customer/findBy/{id}",
+            "/api/v1/customer/delete/{id}"
+    };
+
+    final String[] PERMISSOES_ASSINANTES = {
+            "/api/v1/customer/register",
+            "/api/v1/customer/update/{id}",
+            "/api/v1/customer/update/{id}",
+            "/api/v1/courses/category/{category}",
+            "/api/v1/courses/{name}"
     };
 
     @Bean
@@ -39,7 +56,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(PERMISSOES).permitAll().anyRequest().authenticated())
+                        .requestMatchers(PERMISSOES_GERAIS).permitAll()
+                        .requestMatchers(PERMISSOES_ADMINISTRACAO).hasRole("admin")
+                        .requestMatchers(PERMISSOES_ASSINANTES).hasRole("customer")
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
