@@ -2,6 +2,7 @@ package com.example.coachMeUp.domain.address;
 
 import com.example.coachMeUp.domain.entities.Customer;
 import com.example.coachMeUp.request.customer.DataAddress;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Address {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_customer")
+    @JsonIgnore
     private Customer customer;
 
 
