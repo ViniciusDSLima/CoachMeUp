@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "courses", uniqueConstraints =
@@ -21,10 +22,16 @@ public class Courses {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(unique = true)
     private String id;
+
     private String name;
+
     @Enumerated(EnumType.STRING)
     private Category category;
+
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "courses")
+    private List<Customer> customer;
 
     public void updateInfo(CoursesUpdateRequest request) {
         if(request.getName() != null) this.name = request.getName();
