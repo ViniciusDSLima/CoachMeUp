@@ -1,7 +1,6 @@
 package com.example.coachMeUp.domain.entities;
 
 import com.example.coachMeUp.enums.TypeNumber;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,7 @@ public class Phone {
     @Enumerated(EnumType.STRING)
     private TypeNumber typeNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_customer")
     private Customer customer;
 

@@ -22,7 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@EntityScan
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -43,8 +42,11 @@ public class Customer {
     private Address address;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-
     private List<Phone> phone;
+
+    @ManyToOne
+    @JoinColumn(name = "id_courses")
+    private Courses courses;
 
     @Enumerated(EnumType.STRING)
     private CustomerRole role;
