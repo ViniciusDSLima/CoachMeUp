@@ -2,7 +2,7 @@ package com.example.coachMeUp.enums;
 
 public enum UserRole {
     ADMIN("admin"),
-    USER("user");
+    USER("common_user");
 
     private String description;
 
