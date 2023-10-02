@@ -7,9 +7,11 @@ import com.example.coachMeUp.exceptions.errors.ObjectNotFoundException;
 import com.example.coachMeUp.exceptions.errors.UndefinedName;
 import com.example.coachMeUp.mapper.CoursesMapper;
 import com.example.coachMeUp.repository.CoursesRepository;
+import com.example.coachMeUp.request.CoursesRegisterRequest;
 import com.example.coachMeUp.request.course.CoursesUpdateRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -25,8 +27,8 @@ public class CoursesService {
     private CoursesRepository coursesRepository;
 
     @Transactional
-    public CoursesDTO save(Courses courses){
-        Courses course = coursesRepository.save(courses);
+    public CoursesDTO save(@Valid CoursesRegisterRequest request){
+        Courses course = coursesRepository.save(CoursesMapper.INSTANCE.toCustomer(request));
 
         return CoursesMapper.INSTANCE.toCourseDTO(course);
     }
@@ -39,7 +41,7 @@ public class CoursesService {
         return CoursesMapper.INSTANCE.toCourseDTO(course);
     }
 
-    public CoursesDTO findByName(String name){
+    public CoursesDTO findByName(@Min(3) String name){
         Courses course = coursesRepository.findByName(name)
                 .orElseThrow(() -> new UndefinedName("Curso nao encontrado."));
 
