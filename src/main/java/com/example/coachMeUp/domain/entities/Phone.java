@@ -1,6 +1,7 @@
 package com.example.coachMeUp.domain.entities;
 
 import com.example.coachMeUp.enums.TypeNumber;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class Phone {
 
     @ManyToOne
     @JoinColumn(name = "id_customer")
+    @JsonIgnore
     private Customer customer;
 
 }
