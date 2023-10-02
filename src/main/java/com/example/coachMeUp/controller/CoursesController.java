@@ -2,6 +2,7 @@ package com.example.coachMeUp.controller;
 
 import com.example.coachMeUp.domain.entities.Category;
 import com.example.coachMeUp.domain.entities.Courses;
+import com.example.coachMeUp.request.CoursesRegisterRequest;
 import com.example.coachMeUp.request.course.CoursesUpdateRequest;
 import com.example.coachMeUp.service.CoursesService;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,8 @@ public class CoursesController {
     private CoursesService coursesService;
 
     @PostMapping("/register")
-    public ResponseEntity save(@RequestBody Courses courses){
-        return ResponseEntity.status(HttpStatus.CREATED).body(coursesService.save(courses));
+    public ResponseEntity save(@RequestBody CoursesRegisterRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(coursesService.save(request));
     }
 
     @GetMapping("/{name}")
