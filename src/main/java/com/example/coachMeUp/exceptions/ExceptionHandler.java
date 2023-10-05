@@ -2,9 +2,11 @@ package com.example.coachMeUp.exceptions;
 
 import com.example.coachMeUp.exceptions.errors.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ExceptionHandler {
@@ -60,5 +62,20 @@ public class ExceptionHandler {
                 ex.getMessage(), request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(EmailNotFound.class)
+    public ResponseEntity<Error> undefinedCategory(EmailNotFound ex,
+                                                   HttpServletRequest request){
+        Error error = new Error(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Email is not already exception",
+                ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity constraintViolationException() {
+        return ResponseEntity.badRequest().body("Já existe esse e-mail cadastrado!");
     }
 }
