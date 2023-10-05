@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(url = "https://www.cttcodigopostal.pt/api/v1/4419153811ec44ceb2ff1519c436648f", name = "CTT")
-public interface Ctt {
+@FeignClient(url = "https://www.cttcodigopostal.pt/api/v1/4419153811ec44ceb2ff1519c436648f", name = "APIZippotamus")
+public interface CTT {
 
     @GetMapping("/{codigoPostal}")
-    List<AdressDTO> buscarCodigoPostal(@PathVariable String codigoPostal);
+    List<AdressDTO> buscarCodigoPostal(@PathVariable("codigoPostal") String codigoPostal);
 }
