@@ -2,7 +2,7 @@ package com.example.coachMeUp.service;
 
 import com.example.coachMeUp.DTO.AdressDTO;
 import com.example.coachMeUp.DTO.CustomerDTO;
-import com.example.coachMeUp.externalApis.Ctt;
+import com.example.coachMeUp.externalApis.CTT;
 import com.example.coachMeUp.domain.entities.Customer;
 import com.example.coachMeUp.exceptions.errors.ObjectNotFoundException;
 import com.example.coachMeUp.mapper.CustomerMapper;
@@ -28,13 +28,12 @@ public class CustomerService {
 
     private List<Validation> validations;
 
-    private final Ctt cttClient;
+    private final CTT CTTClient;
 
 
     @Transactional
     public CustomerDTO save(@Valid CustomerRegisterRequest customerRegisterRequest){
 
-        //Validacao email e password.
         for(Validation valide: validations){
             valide.valideCustomer(customerRegisterRequest);
         }
@@ -46,9 +45,9 @@ public class CustomerService {
         return CustomerMapper.INSTANCE.toCustomerDto(customer);
     }
 
-    public boolean validarCodigoPostal(CustomerRegisterRequest customer){
-        String codigoPostal = customer.getAddress().getCodigoPostal();
-        List<AdressDTO> adressDTO = cttClient.buscarCodigoPostal(codigoPostal);
+    public boolean validarCodigoPostal(CustomerRegisterRequest request){
+        String codigoPostal = request.getAddress().getCodigoPostal();
+        List<AdressDTO> adressDTO = CTTClient.buscarCodigoPostal(codigoPostal);
 
         return (adressDTO != null && !adressDTO.isEmpty()) ? true : false;
      }
