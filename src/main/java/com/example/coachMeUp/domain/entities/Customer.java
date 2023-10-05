@@ -17,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id", "NIF"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id"}))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,8 +35,6 @@ public class Customer {
 
     private String password;
 
-    @Column(unique = true)
-    private String NIF;
 
     @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private Address address;
