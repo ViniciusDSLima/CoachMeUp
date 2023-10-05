@@ -26,9 +26,6 @@ public class CustomerRegisterRequest {
     message = "A senha exige de 4 a 32 caracteres, Letras maiusculas e minusculas, numeros e caracteres especiais.")
     private String password;
     @NotNull
-//    @Pattern(regexp = "^\\d{8}\\d{1}$")
-    private String NIF;
-    @NotNull
     private List<Phone> phone;
     @NotNull
     private DataAddress address;
