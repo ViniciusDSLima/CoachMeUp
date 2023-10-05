@@ -7,14 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import static com.example.coachMeUp.permissions.AdminPermissions.PERMISSOES_ADMINISTRACAO;
+import static com.example.coachMeUp.permissions.CustomerPermissions.PERMISSOES_ASSINANTES;
+import static com.example.coachMeUp.permissions.GeneralPermissions.PERMISSOES_GERAIS;
 
 @Configuration
 @EnableWebSecurity
@@ -25,33 +32,9 @@ public class SecurityConfig {
     @Autowired
     UsuarioServiceImpl usuarioService;
 
-    final String[] PERMISSOES_GERAIS = {
-            "/login",
-            "/api/v1/usuario/register",
-            "/api/v1/courses/{name}",
-            "/api/v1/courses/categories/{category}"
-    };
-
-    final String[] PERMISSOES_ADMINISTRACAO = {
-            "/api/v1/courses/register",
-            "/api/v1/courses/delete/{id}",
-            "/api/v1/courses/update/{id}",
-            "/api/v1/courses/update/{id}",
-            "/api/v1/customer/findBy/{id}",
-            "/api/v1/customer/delete/{id}"
-    };
-
-    final String[] PERMISSOES_ASSINANTES = {
-            "/api/v1/customer/register",
-            "/api/v1/customer/update/{id}",
-            "/api/v1/customer/update/{id}",
-            "/api/v1/courses/category/{category}",
-            "/api/v1/courses/{name}"
-    };
-
     @Bean
     @SneakyThrows
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity){
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -60,8 +43,24 @@ public class SecurityConfig {
                         .requestMatchers(PERMISSOES_ADMINISTRACAO).hasRole("admin")
                         .requestMatchers(PERMISSOES_ASSINANTES).hasRole("customer")
                         .anyRequest().authenticated())
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                        .addFilterBefore(securityFilter,
+                                UsernamePasswordAuthenticationFilter.class)
+                .cors(corsCustomizer())
                 .build();
+    }
+
+    @Bean
+    public Customizer<CorsConfigurer<HttpSecurity>> corsCustomizer() {
+        return (cors) -> cors.configurationSource(request -> {
+            CorsConfiguration config = new CorsConfiguration();
+
+            config.addAllowedOrigin("http://localhost:8081");
+            config.addAllowedMethod("*");
+            config.addAllowedOrigin("*");
+            config.setAllowCredentials(true);
+
+            return config;
+        });
     }
 
 
