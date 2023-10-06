@@ -15,7 +15,6 @@ import java.util.List;
 public class CustomerDTO {
     private String name;
     private String email;
-    private String NIF;
     private List<Phone> phone;
     private Address address;
     private Flat flat;
