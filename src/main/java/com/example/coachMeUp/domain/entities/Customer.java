@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +50,9 @@ public class Customer {
 
     @Enumerated(EnumType.STRING)
     private Flat flat;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Orders> orders;
 
     @Column(nullable = true)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
