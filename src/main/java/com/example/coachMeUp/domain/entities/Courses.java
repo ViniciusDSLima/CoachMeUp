@@ -33,6 +33,9 @@ public class Courses {
     @OneToMany(mappedBy = "courses")
     private List<Customer> customer;
 
+    @OneToMany(mappedBy = "courses")
+    private List<Orders> orders;
+
     public void updateInfo(CoursesUpdateRequest request) {
         if(request.getName() != null) this.name = request.getName();
         if(request.getPrice() != null) this.price = request.getPrice();
