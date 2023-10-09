@@ -9,11 +9,13 @@ import com.example.coachMeUp.mapper.CustomerMapper;
 import com.example.coachMeUp.repository.CustomerRepository;
 import com.example.coachMeUp.request.customer.CustomerRegisterRequest;
 import com.example.coachMeUp.request.customer.CustomerUpdateRequest;
+import com.example.coachMeUp.security.TokenService;
 import com.example.coachMeUp.validations.Validation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +43,7 @@ public class CustomerService {
         boolean codigoPostalValido = validarCodigoPostal(customerRegisterRequest);
 
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
+
 
         return CustomerMapper.INSTANCE.toCustomerDto(customer);
     }
