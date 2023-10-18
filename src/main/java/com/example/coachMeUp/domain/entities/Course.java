@@ -1,26 +1,25 @@
 package com.example.coachMeUp.domain.entities;
 
 import com.example.coachMeUp.request.course.CoursesUpdateRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "courses", uniqueConstraints =
-            @UniqueConstraint(columnNames = "id"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Courses {
+public class Course {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(unique = true)
+    @Column(name = "id")
     private String id;
 
     private String name;
@@ -28,17 +27,16 @@ public class Courses {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    private BigDecimal price;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "courses")
+    private List<Package> packages;
 
-    @OneToMany(mappedBy = "courses")
-    private List<Customer> customer;
-
-    @OneToMany(mappedBy = "courses")
-    private List<Orders> orders;
+    @JsonBackReference
+    @ManyToMany(mappedBy = "courses")
+    private List<Customer> customers;
 
     public void updateInfo(CoursesUpdateRequest request) {
         if(request.getName() != null) this.name = request.getName();
-        if(request.getPrice() != null) this.price = request.getPrice();
         if(request.getCategory() != null) this.category = request.getCategory();
     }
 }
