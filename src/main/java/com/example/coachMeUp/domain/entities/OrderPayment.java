@@ -3,14 +3,14 @@ package com.example.coachMeUp.domain.entities;
 import jakarta.persistence.*;
 
 @Entity
-public class OrdersPayment {
+public class OrderPayment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_pedido")
-    private Orders orders;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "id_payment")
