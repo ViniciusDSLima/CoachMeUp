@@ -1,6 +1,7 @@
 package com.example.coachMeUp.domain.entities;
 
 import com.example.coachMeUp.enums.PaymentTypes;
+import com.example.coachMeUp.enums.StagesPayment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,5 +23,8 @@ public class Payment {
     private PaymentTypes paymentTypes;
 
     @OneToMany(mappedBy = "payment")
-    private List<OrdersPayment> ordersPayments;
+    private List<OrderPayment> orderPayments;
+
+    @Enumerated(EnumType.STRING)
+    private StagesPayment stagesPayment;
 }
