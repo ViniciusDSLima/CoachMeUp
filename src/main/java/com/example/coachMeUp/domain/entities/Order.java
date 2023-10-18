@@ -1,44 +1,53 @@
 package com.example.coachMeUp.domain.entities;
 
-import com.example.coachMeUp.enums.StagesPayment;
+import com.example.coachMeUp.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity(name = "orders")
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"id"}))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_courses")
-    private Courses courses;
+    private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "id_customer")
-    private Customer customer;
-
-    @OneToMany(mappedBy = "orders")
-    private List<OrdersPayment> ordersPayments;
+    private BigDecimal totalPrice;
 
     @Enumerated(EnumType.STRING)
-    private StagesPayment stagesPayment;
+    private OrderStatus orderStatus;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @CreationTimestamp
     private LocalDateTime carriedOutAt;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @UpdateTimestamp
+    private LocalDateTime updatedOut;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime finishedAt;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private OrderPayment orderPayment;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
+    private Item item;
+
+    @OneToOne
+    @JoinColumn(name = "id_customer")
+    private Customer customer;
 
 }
