@@ -8,6 +8,7 @@ public interface AdminPermissions {
             "/api/v1/courses/update/{id}",
             "/api/v1/courses/update/{id}",
             "/api/v1/customer/findBy/{id}",
-            "/api/v1/customer/delete/{id}"
+            "/api/v1/customer/delete/{id}",
+            "/api/v1/packages/register"
     };
 }
