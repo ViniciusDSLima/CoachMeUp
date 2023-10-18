@@ -44,7 +44,7 @@ public class Order {
     private OrderPayment orderPayment;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
-    private Item item;
+    private OrderItem orderItem;
 
     @OneToOne
     @JoinColumn(name = "id_customer")
