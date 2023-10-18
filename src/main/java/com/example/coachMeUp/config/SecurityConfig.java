@@ -1,7 +1,7 @@
 package com.example.coachMeUp.config;
 
 import com.example.coachMeUp.security.SecurityFilter;
-import com.example.coachMeUp.service.UsuarioServiceImpl;
+import com.example.coachMeUp.service.AuthServiceImpl;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class SecurityConfig {
     SecurityFilter securityFilter;
 
     @Autowired
-    UsuarioServiceImpl usuarioService;
+    AuthServiceImpl usuarioService;
 
     @Bean
     @SneakyThrows
@@ -43,8 +43,7 @@ public class SecurityConfig {
                         .requestMatchers(PERMISSOES_ADMINISTRACAO).hasRole("ADMIN")
                         .requestMatchers(PERMISSOES_ASSINANTES).hasRole("CUSTOMER")
                         .anyRequest().authenticated())
-                        .addFilterBefore(securityFilter,
-                                UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(corsCustomizer())
                 .build();
     }
