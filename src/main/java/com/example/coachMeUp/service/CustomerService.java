@@ -2,20 +2,18 @@ package com.example.coachMeUp.service;
 
 import com.example.coachMeUp.DTO.AdressDTO;
 import com.example.coachMeUp.DTO.CustomerDTO;
-import com.example.coachMeUp.externalApis.CTT;
 import com.example.coachMeUp.domain.entities.Customer;
 import com.example.coachMeUp.exceptions.errors.ObjectNotFoundException;
+import com.example.coachMeUp.externalApis.CTT;
 import com.example.coachMeUp.mapper.CustomerMapper;
 import com.example.coachMeUp.repository.CustomerRepository;
 import com.example.coachMeUp.request.customer.CustomerRegisterRequest;
 import com.example.coachMeUp.request.customer.CustomerUpdateRequest;
-import com.example.coachMeUp.security.TokenService;
 import com.example.coachMeUp.validations.Validation;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,17 +38,16 @@ public class CustomerService {
             valide.valideCustomer(customerRegisterRequest);
         }
 
-        boolean codigoPostalValido = validarCodigoPostal(customerRegisterRequest);
+        boolean postalCodeIsValid = postalCodeValidation(customerRegisterRequest);
 
         Customer customer = customerRepository.save(CustomerMapper.INSTANCE.toCustomer(customerRegisterRequest));
-
 
         return CustomerMapper.INSTANCE.toCustomerDto(customer);
     }
 
-    public boolean validarCodigoPostal(CustomerRegisterRequest request){
-        String codigoPostal = request.getAddress().getCodigoPostal();
-        List<AdressDTO> adressDTO = CTTClient.buscarCodigoPostal(codigoPostal);
+    public boolean postalCodeValidation(CustomerRegisterRequest request) {
+        String postalCode = request.getAddress().getCodigoPostal();
+        List<AdressDTO> adressDTO = CTTClient.findPostalCode(postalCode);
 
         return (adressDTO != null && !adressDTO.isEmpty()) ? true : false;
      }
