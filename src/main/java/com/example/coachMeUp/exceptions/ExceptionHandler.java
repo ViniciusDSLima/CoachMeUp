@@ -1,15 +1,17 @@
 package com.example.coachMeUp.exceptions;
 
 import com.example.coachMeUp.exceptions.errors.*;
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandler {
+
     @org.springframework.web.bind.annotation.ExceptionHandler(ObjectNotFoundException.class)
     public ResponseEntity<Error> objectNotFoundException(ObjectNotFoundException ex,
                                                          HttpServletRequest request){
@@ -76,6 +78,12 @@ public class ExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity constraintViolationException() {
-        return ResponseEntity.badRequest().body("Já existe esse e-mail cadastrado!");
+        return ResponseEntity.badRequest().body("Email is already exists!");
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(FeignException.Forbidden.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity ForbiddenException() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Your user role is dont have permission for access to Url");
     }
 }
