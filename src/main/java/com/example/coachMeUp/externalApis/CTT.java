@@ -11,5 +11,5 @@ import java.util.List;
 public interface CTT {
 
     @GetMapping("/{codigoPostal}")
-    List<AdressDTO> buscarCodigoPostal(@PathVariable("codigoPostal") String codigoPostal);
+    List<AdressDTO> findPostalCode(@PathVariable("codigoPostal") String codigoPostal);
 }
