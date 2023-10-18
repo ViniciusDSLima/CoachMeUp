@@ -33,6 +33,10 @@ public class Usuario implements UserDetails {
         if(this.role == role.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                 new SimpleGrantedAuthority("ROLE_CUSTOMER"),
                 new SimpleGrantedAuthority("ROLE_USER"));
+
+        if (this.role == role.CUSTOMER) return List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"),
+                new SimpleGrantedAuthority("ROLE_USER"));
+
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
