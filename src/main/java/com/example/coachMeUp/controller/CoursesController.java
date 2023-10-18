@@ -1,8 +1,7 @@
 package com.example.coachMeUp.controller;
 
 import com.example.coachMeUp.domain.entities.Category;
-import com.example.coachMeUp.domain.entities.Courses;
-import com.example.coachMeUp.request.CoursesRegisterRequest;
+import com.example.coachMeUp.request.course.CoursesRegisterRequest;
 import com.example.coachMeUp.request.course.CoursesUpdateRequest;
 import com.example.coachMeUp.service.CoursesService;
 import lombok.AllArgsConstructor;
