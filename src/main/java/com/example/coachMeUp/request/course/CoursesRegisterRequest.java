@@ -1,4 +1,4 @@
-package com.example.coachMeUp.request;
+package com.example.coachMeUp.request.course;
 
 import com.example.coachMeUp.domain.entities.Category;
 import jakarta.validation.constraints.NotBlank;
