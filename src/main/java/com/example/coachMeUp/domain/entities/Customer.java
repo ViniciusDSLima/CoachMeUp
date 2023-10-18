@@ -5,11 +5,10 @@ import com.example.coachMeUp.enums.CustomerRole;
 import com.example.coachMeUp.enums.Flat;
 import com.example.coachMeUp.request.customer.CustomerUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,30 +29,39 @@ public class Customer {
 
     private String name;
     @Column(unique = true)
-
     private String email;
 
     private String password;
 
-
-    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_address")
     private Address address;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Phone> phone;
 
-    @ManyToOne
-    @JoinColumn(name = "id_courses")
-    private Courses courses;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_package")
+    private Package thisPackage;
+
+    @ManyToMany
+    @JsonManagedReference
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinTable(
+            name = "CUSTOMER_COURSE",
+            joinColumns = @JoinColumn(name = "ID_CUSTOMER"),
+            inverseJoinColumns = @JoinColumn(name = "ID_COURSE")
+    )
+    private List<Course> courses;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Order order;
 
     @Enumerated(EnumType.STRING)
     private CustomerRole role;
 
     @Enumerated(EnumType.STRING)
     private Flat flat;
-
-    @OneToMany(mappedBy = "customer")
-    private List<Orders> orders;
 
     @Column(nullable = true)
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
