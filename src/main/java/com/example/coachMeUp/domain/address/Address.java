@@ -1,9 +1,10 @@
 package com.example.coachMeUp.domain.address;
 
-import com.example.coachMeUp.domain.entities.Customer;
 import com.example.coachMeUp.request.customer.DataAddress;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,12 +24,6 @@ public class Address {
     private String concelho;
     private String distrito;
     private String localidade;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_customer")
-    @JsonIgnore
-    private Customer customer;
-
 
     public void updateInfo(DataAddress address){
         if(address.getMorada() != null) this.morada = address.getMorada();
