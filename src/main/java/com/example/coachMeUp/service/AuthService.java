@@ -1,6 +1,7 @@
 package com.example.coachMeUp.service;
 
 import com.example.coachMeUp.domain.entities.Usuario;
+import com.example.coachMeUp.exceptions.errors.FieldsExcpetions;
 import com.example.coachMeUp.request.usuario.UsuarioRequestLogin;
 import com.example.coachMeUp.security.TokenService;
 import jakarta.validation.Valid;
@@ -22,14 +23,9 @@ public class AuthService {
 
     public List<String> login(@Valid UsuarioRequestLogin request){
 
-        if(request.getEmail() == null){
-            throw new NullPointerException("O email e necessario para realizar o login");
+        if (request.getEmail() == null || request.getPassword() == null) {
+            throw new FieldsExcpetions("All fields are required for login");
         }
-
-        if(request.getPassword() == null){
-            throw new NullPointerException("A senha e necessaria para realizar o login");
-        }
-
         
         var username = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword());
 
