@@ -75,6 +75,15 @@ public class ExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(FieldsExcpetions.class)
+    public ResponseEntity<Error> undefinedCategory(FieldsExcpetions ex,
+                                                   HttpServletRequest request) {
+        Error error = new Error(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Fields is required",
+                ex.getMessage(), request.getRequestURI());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
     @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity constraintViolationException() {
